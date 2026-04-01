@@ -1,0 +1,104 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files (use DVC or Git LFS for large files)
+# Only ignore data directories — small fixtures in tests/ are allowed
+project/data/raw/*
+!project/data/raw/.gitkeep
+project/data/interim/*
+!project/data/interim/.gitkeep
+project/data/processed/*
+!project/data/processed/.gitkeep
+project/data/external/*
+!project/data/external/.gitkeep
+project/data/features/*
+!project/data/features/.gitkeep
+
+# Large binary data formats (anywhere outside tests/fixtures)
+# Note: small CSV/Parquet fixtures in tests/ are intentionally allowed
+*.feather
+*.hdf5
+*.npy
+*.npz
+*.arrow
+*.avro
+*.db
+*.sqlite
+*.sqlite3
+
+# Model artifacts (use MLflow or DVC)
+project/models/*.pkl
+project/models/*.joblib
+project/models/*.pt
+project/models/*.pth
+project/models/*.h5
+project/models/*.onnx
+project/models/*.pb
+project/models/*.ckpt
+project/models/*.safetensors
+!project/models/.gitkeep
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Weights & Biases
+wandb/
+
+# DVC
+.dvc/tmp/
+
+# Experiment session state
+project/experiments/session-state/
+project/experiments/session-logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Linting and testing caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Credentials and secrets
+*.pem
+*.key
+credentials.json
+service-account.json
+
+# Terraform
+.terraform/
+*.tfstate*
+
+# Docker
+.docker/
+
+# OS
+Thumbs.db
+.DS_Store

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "statusLine": {
+    "type": "command",
+    "command": "bash .claude/statusline.sh"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git rev-parse*)",
+      "Bash(ls *)",
+      "Bash(python --version*)",
+      "Bash(python -m pytest*)",
+      "Bash(python -m pip list*)",
+      "Bash(python -c *)",
+      "Bash(pip list*)",
+      "Bash(dbt --version*)",
+      "Bash(dbt ls*)",
+      "Bash(dbt test*)",
+      "Bash(mlflow *)",
+      "Bash(dvc *)",
+      "Bash(jupyter --version*)",
+      "Bash(wc -l *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(sudo *)",
+      "Bash(chmod 777*)",
+      "Bash(*>.env*)",
+      "Bash(cat *.env*)",
+      "Bash(type *.env*)",
+      "Read(**/.env*)",
+      "Read(**/*credentials*)",
+      "Read(**/*secret*)",
+      "Bash(*DROP TABLE*)",
+      "Bash(*DROP DATABASE*)",
+      "Bash(*TRUNCATE TABLE*)",
+      "Bash(*DELETE FROM*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-start.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/detect-gaps.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-tool-use.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/validate-commit.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/validate-push.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-tool-use.sh",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/notebook-save.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-compact.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/stop.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/log-agent.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
